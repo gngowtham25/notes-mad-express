@@ -108,10 +108,9 @@ exports.update = (req, res) => {
                 });
             } else {
                 let timeInMss = Date.now()
-                let latestVersionId = note.versions[note.versions.length - 1]
                 models.Note.find({ _id: note._id }).populate('versions').exec(function (err, notes) {
                     let latestUpdatedTime = new Date(notes[0].versions[notes[0].versions.length - 1].updated_at)
-                    if (timeInMss - latestUpdatedTime.getTime() > 60000) {
+                    if (timeInMss - latestUpdatedTime.getTime() > 600000) {
                         console.log("Time Difference")
                         var newversion = new models.Version({
                             _id: new mongoose.Types.ObjectId(),
